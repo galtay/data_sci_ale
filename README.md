@@ -37,3 +37,12 @@ to your `.bash_profile` file and it will advise you that this change will not be
 ### Environment Notes
 
 When you are done, you should have a directory called `anaconda3` in your home directory.  This is an isolated little nugget of computing power.  You may have other Python version managing tools on your system (e.g. pyenv).  The above command will override those tools.  If you prefer to not use the Anaconda distribution at some later time, you can comment out the `export` line from your startup script (i.e. `.bash_profile`) and open a new terminal.  If you ever want to totally remove the distribution, simply delete this directory `anaconda3`.
+
+
+### Random Posts About Anaconda
+
+  * [conda docs](http://conda.pydata.org/docs/get-started.html)
+
+  * [reddit on Anaconda](https://www.reddit.com/r/Python/comments/3t23vv/what_advantages_are_there_of_using_anaconda/?st=itp15vj9&sh=4e9c8ef1)
+
+  * [Conda: Myths and Misconceptions](https://jakevdp.github.io/blog/2016/08/25/conda-myths-and-misconceptions/)
