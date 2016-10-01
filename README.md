@@ -43,9 +43,7 @@ When you are done, you should have a directory called `anaconda3` in your home d
 ## Random Posts About Anaconda
 
   * [conda docs](http://conda.pydata.org/docs/get-started.html)
-
   * [reddit on Anaconda](https://www.reddit.com/r/Python/comments/3t23vv/what_advantages_are_there_of_using_anaconda/?st=itp15vj9&sh=4e9c8ef1)
-
   * [Conda: Myths and Misconceptions](https://jakevdp.github.io/blog/2016/08/25/conda-myths-and-misconceptions/)
 
 
