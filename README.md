@@ -1,10 +1,11 @@
 # Put Data Science On Your Computer!
 
+A practical guide to a grab bag of data science techniques with a bias towards medical data.
 
-## Anaconda Software Distribution
+# Anaconda Software Distribution
 
 
-### Environment Setup
+## Environment Setup
 
 A handy dandy Python (+ other stuff) universe can be at your fingertips thanks to the folks at [Continuum Analytics](https://www.continuum.io/).  To get started, go to their download page and install the Anaconda software distribution (the Python 3 version),
 
@@ -34,12 +35,12 @@ export PATH="/Users/galtay/anaconda3/bin:$PATH"
 to your `.bash_profile` file and it will advise you that this change will not become active until you open another terminal (which you should do).  Even if you don't use the bash shell you can copy the `export` command into the appropriate startup file (e.g. .zshrc for zsh).
 
 
-### Environment Notes
+## Environment Notes
 
 When you are done, you should have a directory called `anaconda3` in your home directory.  This is an isolated little nugget of computing power.  You may have other Python version managing tools on your system (e.g. pyenv).  The above command will override those tools.  If you prefer to not use the Anaconda distribution at some later time, you can comment out the `export` line from your startup script (i.e. `.bash_profile`) and open a new terminal.  If you ever want to totally remove the distribution, simply delete this directory `anaconda3`.
 
 
-### Random Posts About Anaconda
+## Random Posts About Anaconda
 
   * [conda docs](http://conda.pydata.org/docs/get-started.html)
 
@@ -48,7 +49,7 @@ When you are done, you should have a directory called `anaconda3` in your home d
   * [Conda: Myths and Misconceptions](https://jakevdp.github.io/blog/2016/08/25/conda-myths-and-misconceptions/)
 
 
-## Centers for Medicare & Medicaid Services (CMS) Data
+# Centers for Medicare & Medicaid Services (CMS) Data
 
   * [Synthetic Public Use Files (SynPUFs)](https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SynPUFs/)
   * [Limited Data Set (LDS) Files](https://www.cms.gov/Research-Statistics-Data-and-Systems/Files-for-Order/LimitedDataSets/index.html)
