@@ -14,3 +14,14 @@ unzip Drug_Spending_Data.zip
 ```
 
 This should get you a file called `Medicare_Drug_Spending_Dashboard_Data_02_17_2016.xlsx`.  Now the notebook/script in this directory should run.
+
+from the terminal
+```shell
+python medicare_drug_spending.py
+```
+
+from the ipython shell
+```shell
+ipython
+> run -i medicare_drug_spending.py
+```
