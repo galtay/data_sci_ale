@@ -51,3 +51,13 @@ When you are done, you should have a directory called `anaconda3` in your home d
 
   * [Synthetic Public Use Files (SynPUFs)](https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SynPUFs/)
   * [Limited Data Set (LDS) Files](https://www.cms.gov/Research-Statistics-Data-and-Systems/Files-for-Order/LimitedDataSets/index.html)
+
+
+# Grab Bag of Machine Learning Links
+
+## R2D3
+  * [Trees](http://www.r2d3.us/visual-intro-to-machine-learning-part-1/)
+
+## TopTal
+  * [Machine Learning Intro](https://www.toptal.com/machine-learning/machine-learning-theory-an-introductory-primer)
+  * [Clustering](https://www.toptal.com/machine-learning/clustering-algorithms)
