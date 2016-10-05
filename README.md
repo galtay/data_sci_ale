@@ -59,5 +59,15 @@ When you are done, you should have a directory called `anaconda3` in your home d
   * [Trees](http://www.r2d3.us/visual-intro-to-machine-learning-part-1/)
 
 ## TopTal
+
   * [Machine Learning Intro](https://www.toptal.com/machine-learning/machine-learning-theory-an-introductory-primer)
+
   * [Clustering](https://www.toptal.com/machine-learning/clustering-algorithms)
+
+  * [Ensemble Methods](https://www.toptal.com/machine-learning/ensemble-methods-machine-learning)
+
+
+  * [Big Data Hiring Guide](https://www.toptal.com/big-data#hiring-guide)
+
+    ** [Big Data Algorithms](https://www.toptal.com/big-data#big_data_algorithms)
+    ** [Big Data Technologies](https://www.toptal.com/big-data#big_data_technologies)
