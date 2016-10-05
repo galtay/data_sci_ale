@@ -69,5 +69,5 @@ When you are done, you should have a directory called `anaconda3` in your home d
 
   * [Big Data Hiring Guide](https://www.toptal.com/big-data#hiring-guide)
 
-    ** [Big Data Algorithms](https://www.toptal.com/big-data#big_data_algorithms)
-    ** [Big Data Technologies](https://www.toptal.com/big-data#big_data_technologies)
+    * [Big Data Algorithms](https://www.toptal.com/big-data#big_data_algorithms)
+    * [Big Data Technologies](https://www.toptal.com/big-data#big_data_technologies)
