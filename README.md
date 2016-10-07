@@ -55,6 +55,13 @@ When you are done, you should have a directory called `anaconda3` in your home d
 
 # Grab Bag of Machine Learning Links
 
+## Tools
+  * [scikit-learn](http://scikit-learn.org/stable/)
+
+
+## Wikipedia
+  * [Machine Learning](https://en.wikipedia.org/wiki/Machine_learning)
+
 ## R2D3
   * [Trees](http://www.r2d3.us/visual-intro-to-machine-learning-part-1/)
 
