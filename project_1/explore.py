@@ -1,60 +1,33 @@
+import time
 import pandas
+import matplotlib.pyplot as plt
+import seaborn as sns
+
 import us_states
+from geo_var_state_county import CmsGeoVarCountyTable
 
-read_data = True
-
-if read_data:
+doio=False
+if doio:
     fname = '/home/galtay/Downloads/cms_data/County_All_Table.xlsx'
-    df_raw = pandas.read_excel(
-        fname, sheetname='State_county 2014', header=1, engine='xlrd',
-        na_values=['.', '*'])
+    gvct = CmsGeoVarCountyTable(fname, verbose=True)
 
 
-    # get only state total rows (this sums up to national value)
-    # and includes State=='XX'
-    bmask = df_raw['County']=='STATE TOTAL'
-    df_state_totals = df_raw[bmask]
-
-    # mask out summary rows (i.e. national and state totals)
-    # need to keep XX for this to match national total
-    bmask1 = df_raw['State']=='XX'
-    bmask2 = (df_raw['State']!='XX') & (df_raw['County']!='STATE TOTAL')
-    bmask = bmask1 | bmask2
+ct = gvct.return_county_totals()
 
 
-    # remove state entries we dont want
-    bmask = ~df['State'].isin(['National', 'XX'])
-    df = df[bmask]
-
-    # remove STATE TOTAL entris
-    bmask = ~(df['County']=='STATE TOTAL')
-    df = df[bmask]
-
-
-
-top_col_levels = [
-    'Beneficiary Demographic Characteristics',
-    'Total Costs',
-    'Service-Level Costs and Utilization',
-    'Readmissions and ED Visits',
-    'Prevention Quality Indicators',
-]
-
-
-
-features = ['Standardized Risk-Adjusted Per Capita Costs']
-
-frac_nan = df.isnull().sum() / df.shape[0]
+# find columns for which less than 10% of the data is missing
+frac_nan = ct.isnull().sum() / ct.shape[0]
 dense_columns = frac_nan < 0.10
 
 
-for st in df_raw['State'].unique():
-    if st in us_states.STATES:
-        bmask = (df_raw['State']==st) & (df_raw['County']=='STATE TOTAL')
-        state_total = df_raw.loc[bmask, 'Total Actual Costs']
+pair_cols = [
+    'Average HCC Score',
+    'Standardized Per Capita Costs',
+    'Emergency Department Visits per 1000 Beneficiaries'
+    ]
 
-        bmask = (df_raw['State']==st) & (df_raw['County']!='STATE TOTAL')
-        state_sum = df_raw.loc[bmask, 'Total Actual Costs'].sum()
-        print('{} {} {}'.format(st, state_total, state_sum))
-        print(state_total/state_sum)
-        print()
+plt_df = ct[pair_cols].dropna()
+plt_df.columns = ['Avg HCC', 'Cost/Person [$1k]', 'EDD/1000']
+plt_df['Cost/Person [$1k]'] = plt_df['Cost/Person [$1k]'] * 1.0e-3
+g = sns.pairplot(plt_df, size=4.0)
+g.savefig('pairplot.png')
