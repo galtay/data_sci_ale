@@ -6,19 +6,13 @@ import seaborn as sns
 import us_states
 from geo_var_state_county import CmsGeoVarCountyTable
 
-doio=False
-if doio:
-    fname = '/home/galtay/Downloads/cms_data/County_All_Table.xlsx'
-    gvct = CmsGeoVarCountyTable(fname, verbose=True)
 
 
-ct = gvct.return_county_totals()
+fname = '/home/galtay/Downloads/cms_data/County_All_Table.xlsx'
+gvct = CmsGeoVarCountyTable(fname, verbose=True)
 
-
-# find columns for which less than 10% of the data is missing
-frac_nan = ct.isnull().sum() / ct.shape[0]
-dense_columns = frac_nan < 0.10
-
+df = gvct.read_csv(2014)
+ct = gvct.return_county_totals(df)
 
 pair_cols = [
     'Average HCC Score',
