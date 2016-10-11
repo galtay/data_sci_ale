@@ -18,8 +18,8 @@ pair_cols = [
     ]
 
 plt_df = ct[pair_cols].dropna()
-plt_df.columns = ['Avg HCC', 'Cost/Person [$1k]', 'EDD/100']
+plt_df.columns = ['Avg HCC', 'Cost/Person [$1k]', 'EDD/10']
 plt_df['Cost/Person [$1k]'] = plt_df['Cost/Person [$1k]'] * 1.0e-3
-plt_df['EDD/100'] = plt_df['EDD/100'] * 1.0e-1
-g = sns.pairplot(plt_df, size=3.0)
+plt_df['EDD/10'] = plt_df['EDD/10'] * 1.0e-2
+g = sns.pairplot(plt_df, size=2.5)
 g.savefig('pairplot.png')
