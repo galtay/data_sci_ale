@@ -1,4 +1,3 @@
-import time
 import pandas
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -8,11 +7,9 @@ from geo_var_state_county import CmsGeoVarCountyTable
 
 
 
-fname = '/home/galtay/Downloads/cms_data/County_All_Table.xlsx'
+fname = './data/County_All_Table_2014.csv'
 gvct = CmsGeoVarCountyTable(fname, verbose=True)
-
-df = gvct.read_csv(2014)
-ct = gvct.return_county_totals(df)
+ct = gvct.return_county_totals()
 
 pair_cols = [
     'Average HCC Score',

@@ -8,131 +8,12 @@ from sklearn.preprocessing import StandardScaler
 import us_states
 from geo_var_state_county import CmsGeoVarCountyTable
 
-fname = '/home/galtay/Downloads/cms_data/County_All_Table.xlsx'
+
+fname = '/home/galtay/Downloads/cms_data/County_All_Table_2014.csv'
 gvct = CmsGeoVarCountyTable(fname, verbose=True)
-
-df = gvct.read_csv(2014)
-ct = gvct.return_county_totals(df)
-nt = gvct.return_national(df)
-
-
-#===========================================
-# Demographics features
-#===========================================
-demographics = [
-    'MA Participation Rate',
-    'Average Age',
-    'Percent Female',
-    'Percent Male',
-    'Percent Eligible for Medicaid',
-    'Average HCC Score',
-]
-
-#===========================================
-# Total Cost features
-#===========================================
-total_costs = [
-    'Actual Per Capita Costs',
-    'Standardized Per Capita Costs',
-    'Standardized Risk-Adjusted Per Capita Costs',
-]
-
-#===========================================
-# Service-Level Costs and Utilization
-#===========================================
-slcu_dict = {}
-
-
-# All services have these columns
-#===========================================
-slcu_cats = [
-    'IP', 'PAC: LTCH', 'PAC: IRF', 'PAC: SNF', 'PAC: HH',
-    'Hospice', 'OP', 'FQHC/RHC', 'Outpatient Dialysis Facility',
-    'ASC', 'E&M', 'Procedures', 'Imaging', 'DME', 'Tests',
-    'Part B Drugs', 'Ambulance']
-slcu_lines = [
-    '{} Standardized Costs as % of Total Standardized Costs',
-    '{} Per Capita Standardized Costs',
-    '{} Per User Standardized Costs',
-    '% of Beneficiaries Using {}',
-]
-
-for cat in slcu_cats:
-    cols = [line.format(cat) for line in slcu_lines]
-    slcu_dict[cat] = cols
-
-# Covered Stays
-#===========================================
-slcu_cats = ['IP', 'PAC: LTCH', 'PAC: IRF', 'PAC: SNF', 'Hospice']
-slcu_line = '{} Covered Stays Per 1000 Beneficiaries'
-for cat in slcu_cats:
-    slcu_dict[cat].append(slcu_line.format(cat))
-
-# Covered Days
-#===========================================
-slcu_cats = ['IP', 'PAC: LTCH', 'PAC: IRF', 'PAC: SNF', 'Hospice']
-slcu_line = '{} Covered Days Per 1000 Beneficiaries'
-for cat in slcu_cats:
-    slcu_dict[cat].append(slcu_line.format(cat))
-
-# Visits
-#===========================================
-slcu_cats = ['PAC: HH', 'OP', 'FQHC/RHC']
-slcu_line = '{} Visits Per 1000 Beneficiaries'
-for cat in slcu_cats:
-    slcu_dict[cat].append(slcu_line.format(cat))
-
-# Events
-#===========================================
-slcu_cats = [
-    'Outpatient Dialysis Facility', 'ASC', 'E&M',
-    'Procedures', 'Imaging', 'DME', 'Tests', 'Ambulance']
-slcu_line = '{} Events Per 1000 Beneficiaries'
-for cat in slcu_cats:
-    slcu_dict[cat].append(slcu_line.format(cat))
-
-# fix plurality
-slcu_dict['Procedures'][-1] = (
-    slcu_dict['Procedures'][-1].replace('Procedures', 'Procedure'))
-slcu_dict['Tests'][-1] = (
-    slcu_dict['Tests'][-1].replace('Tests', 'Test'))
-
-
-#===========================================
-# Readmissions and ED Visits
-#===========================================
-readmission_ed = [
-    'Hospital Readmission Rate',
-    'Emergency Department Visits per 1000 Beneficiaries',
-]
-
-
-#===========================================
-# Make list of feature columns
-#===========================================
-
-feature_cols = demographics + total_costs
-# Service-Level Costs and Utilization
-feature_cols += slcu_dict['IP']
-feature_cols += slcu_dict['PAC: LTCH']
-feature_cols += slcu_dict['PAC: IRF']
-feature_cols += slcu_dict['PAC: SNF']
-feature_cols += slcu_dict['PAC: HH']
-feature_cols += slcu_dict['Hospice']
-feature_cols += slcu_dict['OP']
-feature_cols += slcu_dict['FQHC/RHC']
-feature_cols += slcu_dict['Outpatient Dialysis Facility']
-feature_cols += slcu_dict['ASC']
-feature_cols += slcu_dict['E&M']
-feature_cols += slcu_dict['Procedures']
-feature_cols += slcu_dict['Imaging']
-feature_cols += slcu_dict['DME']
-feature_cols += slcu_dict['Tests']
-feature_cols += slcu_dict['Part B Drugs']
-feature_cols += slcu_dict['Ambulance']
-# Readmissions and ED visits
-feature_cols += readmission_ed
-
+ct = gvct.return_county_totals()
+nt = gvct.return_national()
+feature_cols = gvct.return_feature_cols()
 
 
 # limit to dense columns
@@ -160,7 +41,7 @@ pca = PCA()
 pca.fit(X)
 n = pca.n_components_
 
-plt.figure()
+plt.figure(figsize=(8,8))
 plt.plot(
     pandas.np.arange(n)+1,
     pandas.np.cumsum(pca.explained_variance_ratio_),
@@ -174,7 +55,7 @@ plt.savefig('pca_components_vs_total_variance.png')
 
 
 Xpc = pca.transform(X)
-plt.figure()
+plt.figure(figsize=(8,8))
 plt.scatter(Xpc[:,0], Xpc[:,1])
 plt.xlabel('First Principal Component')
 plt.ylabel('Second Principal Component')
