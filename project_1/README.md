@@ -47,6 +47,11 @@ There are 244 columns in the geographical variation data set.  In principal, all
 
 ![pca_variance](pca_components_vs_total_variance.png)
 
+The plot shows that almost all the variance is captured in the first 40 principal components and that 40% of the variance is captured in just 2 principal components.  If we plot the first two principal components in a scatter plot we get the following plot,
+
+![pca_components_2d](pca_components_2d.png)
+
+Without doing any sophisticated analysis, it doesn't seem like there are multiple well defined groups.  If we were going to design an outlier detection algorithm for this distribution a single multivariate gaussian might be a good approach.
 
 
 # Data Sources
