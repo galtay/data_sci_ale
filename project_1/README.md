@@ -37,7 +37,7 @@ When the script is complete the `data` directory should look like this,
 
 ### Explore
 
-The `explore.py` script shows an example of the `pairplot` method from the plotting library [seaborn](https://stanford.edu/~mwaskom/software/seaborn) (install with `conda install seaborn`).  This is a quick and dirty way to see correlations between pairs of variables,
+The `explore.py` script shows an example of the `pairplot` method from the plotting library [seaborn](https://stanford.edu/~mwaskom/software/seaborn) (install with `conda install seaborn`).  This is a quick and dirty way to see correlations between pairs of variables.  Each of the off-diagonal panels in the plot below has a single point for each county in the geographical variation data set.  The diagonal panels show the distribution of values in a single column in the same data set.
 
 ![pairplot](pairplot.png)
 
