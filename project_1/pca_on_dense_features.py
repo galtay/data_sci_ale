@@ -41,7 +41,7 @@ pca = PCA()
 pca.fit(X)
 n = pca.n_components_
 
-plt.figure(figsize=(8,8))
+plt.figure(figsize=(6,6))
 plt.plot(
     pandas.np.arange(n)+1,
     pandas.np.cumsum(pca.explained_variance_ratio_),
@@ -55,7 +55,7 @@ plt.savefig('pca_components_vs_total_variance.png')
 
 
 Xpc = pca.transform(X)
-plt.figure(figsize=(8,8))
+plt.figure(figsize=(6,6))
 plt.scatter(Xpc[:,0], Xpc[:,1])
 plt.xlabel('First Principal Component')
 plt.ylabel('Second Principal Component')
