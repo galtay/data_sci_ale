@@ -34,7 +34,9 @@ When the script is complete the `data` directory should look like this,
 
 ## Run the Python
 
-...
+The `explore.py` script shows an example of the `pairplot` method from the plotting library `seaborn`.  This is a quick and dirty way to see correlations between pairs of variables,
+
+![pairplot](pairplot.png)
 
 
 
