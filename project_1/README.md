@@ -63,7 +63,6 @@ So far looking at the State/County Table file.  It includes demographic, total c
 
  * [Geographic Variation PUFs](https://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/Medicare-Geographic-Variation/GV_PUF.html)
 
- * [State/County Table File](https://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/Medicare-Geographic-Variation/Downloads/State_County_Table_All.zip)
 
 > The Centers for Medicare & Medicaid Services (CMS) has developed data that enables researchers and policymakers to evaluate geographic variation in the utilization and quality of health care services for the Medicare fee-for-service population.  We have aggregated this data into a Geographic Variation Public Use File that has demographic, spending, utilization, and quality indicators at the state level (including the District of Columbia, Puerto Rico, and the Virgin Islands), hospital referral region (HRR) level, and county level.
 
