@@ -34,9 +34,18 @@ When the script is complete the `data` directory should look like this,
 
 ## Run the Python
 
-The `explore.py` script shows an example of the `pairplot` method from the plotting library `seaborn`.  This is a quick and dirty way to see correlations between pairs of variables,
+
+### Explore
+
+The `explore.py` script shows an example of the `pairplot` method from the plotting library [seaborn](https://stanford.edu/~mwaskom/software/seaborn).  This is a quick and dirty way to see correlations between pairs of variables,
 
 ![pairplot](pairplot.png)
+
+### PCA Analysis
+
+There are 244 columns in the geographical variation data set.  In principal, all of these are potential features in a machine learning model.  In practice, there are some that just arent good candidates.  For example, per capita spending is a better way to compare two counties than total spending.  In addition, some columns are "sparse" in the sense that many rows are missing data. For example, the columns describing LTCH spending have missing values for approximately half the counties.  But, even if we restrict ourselves to "per capita" style columns that are not sparse, we still have around 83 left.  Principal component analysis is a powerful tool that allows us to reduce the dimensionality of our data (i.e. use fewer columns) by eliminating degeneracies.  In the plot below we show the total variance captured as a function of principal components included.
+
+![pca_variance](pca_components_vs_total_variance.png)
 
 
 
