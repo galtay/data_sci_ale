@@ -23,10 +23,12 @@ def make_pair_plot(fname, level):
     plt_df.columns = ['Avg HCC', 'Cost/Person [$1k]', 'EDD/10']
     plt_df['Cost/Person [$1k]'] = plt_df['Cost/Person [$1k]'] * 1.0e-3
     plt_df['EDD/10'] = plt_df['EDD/10'] * 1.0e-2
-    g = sns.pairplot(plt_df, size=2.5)
-    g = g.map_offdiag(plt.scatter, s=1, alpha=0.5)
-    g.savefig('gvct_pairplot_{}.png'.format(level))
 
+    g = sns.PairGrid(plt_df, size=2.5)
+    g.map_diag(plt.hist)
+    g.map_offdiag(sns.kdeplot, cmap="Reds_d", n_levels=5);
+    g.map_offdiag(plt.scatter, s=10, alpha=0.5);
+    g.savefig('gvct_pairplot_{}.png'.format(level))
 
 if __name__ == '__main__':
 
@@ -39,10 +41,8 @@ if __name__ == '__main__':
     parser.add_argument(
         '--level',
         default='state',
-        choices=['national', 'state', 'county'],
+        choices=['state', 'county'],
         help='rows to select from data')
     args = parser.parse_args()
-
-
 
     make_pair_plot(fname=args.fname, level=args.level)
