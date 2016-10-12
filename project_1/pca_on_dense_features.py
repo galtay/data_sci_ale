@@ -1,6 +1,7 @@
 import pandas
 import matplotlib.pyplot as plt
 import seaborn as sns
+from matplotlib.colors import ListedColormap
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import Imputer
 from sklearn.preprocessing import StandardScaler
@@ -9,10 +10,9 @@ import us_states
 from geo_var_state_county import CmsGeoVarCountyTable
 
 
-fname = '/home/galtay/Downloads/cms_data/County_All_Table_2014.csv'
-gvct = CmsGeoVarCountyTable(fname, verbose=True)
-ct = gvct.return_county_totals()
-nt = gvct.return_national()
+gvct = CmsGeoVarCountyTable(verbose=True)
+ct = gvct.select_rows('county')
+nt = gvct.select_rows('national')
 feature_cols = gvct.return_feature_cols()
 
 
@@ -56,7 +56,11 @@ plt.savefig('pca_components_vs_total_variance.png')
 
 Xpc = pca.transform(X)
 plt.figure(figsize=(6,6))
-plt.scatter(Xpc[:,0], Xpc[:,1])
+plt.scatter(Xpc[:,0], Xpc[:,1], s=20, alpha=0.5)
+n_levels = 7
+palette = list(reversed(sns.color_palette("Reds_d", n_levels)))
+my_cmap = ListedColormap(palette)
+sns.kdeplot(Xpc[:,0], Xpc[:,1], cmap=my_cmap, n_levels=n_levels)
 plt.xlabel('First Principal Component')
 plt.ylabel('Second Principal Component')
 plt.savefig('pca_components_2d.png')
