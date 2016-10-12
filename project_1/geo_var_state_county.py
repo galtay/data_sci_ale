@@ -21,45 +21,78 @@ import pandas
 import us_states
 
 
+VALID_LEVELS = ['national', 'state', 'county']
+DEFAULT_CSV_FNAME = './data/County_All_Table_2014.csv'
+
+
 class CmsGeoVarCountyTable:
     """Class to handle Geographic Variation Public Use Files (State/County)"""
 
-    def __init__(self, csv_fname, verbose=False):
+
+    def __init__(self, csv_fname=DEFAULT_CSV_FNAME, verbose=False):
         """Initialize class with a CSV file name, it is read into a DataFrame.
         """
         self.verbose = verbose
         if self.verbose: print('csv fname: {}'.format(csv_fname))
         self.df = pandas.read_csv(csv_fname)
 
-    def return_national(self):
-        """Return a Series with national data"""
+
+    def select_rows(self, level, exclude=None):
+        """Return a selection of rows from the total DataFrame.
+
+        Args:
+          level (str): the selection of rows to return.  One of
+            ['national', 'state', 'county']
+          exclude (list of str): a list of either states or counties
+            to exclude from the retuned DataFrame
+
+        Returns:
+          DataFrame: Selected rows from the full DataFrame
+        """
+        if level not in VALID_LEVELS:
+            raise ValueError('level must be one of {}'.format(VALID_LEVELS))
+        if exclude is None:
+            exclude = []
+        if level == 'national':
+            return self._select_national_row()
+        elif level == 'state':
+            return self._select_state_rows(exclude=exclude)
+        elif level == 'county':
+            return self._select_county_rows(exclude=exclude)
+
+
+    def _select_national_row(self):
+        """Select row that represents the national total."""
         bmask = self.df['State']=='National'
         return self.df[bmask].iloc[0]
 
-    def return_state_totals(self, exclude=None):
-        """Return a DataFrame with only state level rows.
+
+    def _select_state_rows(self, exclude=None):
+        """Select rows that represent individual states.
 
         By default state abbreviations 'XX', 'DC', 'PR', and 'VI' will be
         included.  The `exclude` keyword can be set to a list of strings
-        to remove a set of state abbreviations from the return value."""
+        to remove a set of state abbreviations from the return value.
+        """
         if exclude is None:
             exclude = []
         bmask = self.df['County'] == 'STATE TOTAL'
         bmask = bmask & ~(self.df['State'].isin(exclude))
         return self.df[bmask]
 
-    def return_county_totals(self, st_exclude=None):
-        """Return a DataFrame with only county level rows.
+
+    def _select_county_rows(self, exclude=None):
+        """Select rows that represent individual counties.
 
         By default state abbreviations 'XX', 'DC', 'PR', and 'VI' will be
-        included.  The `st_exclude` keyword can be set to a list of strings
-        to remove a set of state abbreviations from the return value.
+        included.  The `exclude` keyword can be set to a list of strings
+        to remove a set of counties from the return value.
 
         Note that some states don't have county level data ('XX', 'PR', VI').
         In that case the return value will contain the single state total row.
         """
-        if st_exclude is None:
-            st_exclude = []
+        if exclude is None:
+            exclude = []
 
         # get states that only have state level data
         grpd_df = self.df.groupby('State').size()
@@ -72,8 +105,8 @@ class CmsGeoVarCountyTable:
         bmask2 = ~bmask1 & (self.df['County'] != 'STATE TOTAL')
         # is not a national total
         bmask3 = self.df['State'] != 'National'
-        # is not in state exclude list
-        bmask4 = ~(self.df['State'].isin(st_exclude))
+        # is not in county exclude list
+        bmask4 = ~(self.df['County'].isin(exclude))
 
         bmask = (bmask1 | bmask2) & bmask3 & bmask4
         return self.df[bmask]
@@ -82,7 +115,8 @@ class CmsGeoVarCountyTable:
     def return_feature_cols(self):
         """Return a list of column names that could be plausible features
         for a learning model.  For example we choose 'standardized' and
-        'per capita' type columns."""
+        'per capita' type columns.
+        """
 
         #===========================================
         # Demographics features
@@ -230,9 +264,9 @@ if __name__ == '__main__':
 
     fname = './data/County_All_Table_2014.csv'
     gvct = CmsGeoVarCountyTable(fname, verbose=True)
-    st = gvct.return_state_totals()
-    ct = gvct.return_county_totals()
-    nt = gvct.return_national()
+    st = gvct.select_rows('state')
+    ct = gvct.select_rows('county')
+    nt = gvct.select_rows('national')
 
     check_state_totals_sum_to_national(st, nt)
     check_county_totals_sum_to_national(ct, nt)
