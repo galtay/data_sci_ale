@@ -3,6 +3,7 @@ import argparse
 
 import pandas
 import matplotlib.pyplot as plt
+from matplotlib.colors import ListedColormap
 import seaborn as sns
 
 import us_states
@@ -24,10 +25,14 @@ def make_pair_plot(fname, level):
     plt_df['Cost/Person [$1k]'] = plt_df['Cost/Person [$1k]'] * 1.0e-3
     plt_df['EDD/10'] = plt_df['EDD/10'] * 1.0e-2
 
+    n_levels = 5
+    palette = list(reversed(sns.color_palette("Reds_d", n_levels)))
+    my_cmap = ListedColormap(palette)
+
     g = sns.PairGrid(plt_df, size=2.5)
     g.map_diag(plt.hist)
-    g.map_offdiag(sns.kdeplot, cmap="Reds_d", n_levels=5);
-    g.map_offdiag(plt.scatter, s=10, alpha=0.5);
+    g.map_offdiag(plt.scatter, s=10, alpha=0.5)
+    g.map_offdiag(sns.kdeplot, cmap=my_cmap, n_levels=n_levels);
     g.savefig('gvct_pairplot_{}.png'.format(level))
 
 if __name__ == '__main__':
